@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.encryptionpython.MainController">
+    <center>
+        <VBox spacing="8">
+            <padding>
+                <Insets top="12" right="12" bottom="12" left="12"/>
+            </padding>
+            <!-- 文件操作区 -->
+            <TitledPane text="文件操作" expanded="true">
+                <VBox spacing="6">
+                    <padding>
+                        <Insets top="8" right="8" bottom="8" left="8"/>
+                    </padding>
+                    <HBox spacing="6">
+                        <Button fx:id="chooseFileBtn" text="选择待加密 Python 文件" onAction="#onChooseFile"/>
+                        <TextField fx:id="inputFileField" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                    <HBox spacing="6">
+                        <Button fx:id="chooseOutputBtn" text="设置输出路径" onAction="#onChooseOutput"/>
+                        <TextField fx:id="outputDirField" HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                </VBox>
+            </TitledPane>
+
+            <!-- 加密参数配置区 -->
+            <TitledPane text="加密参数配置" expanded="true">
+                <GridPane hgap="8" vgap="8">
+                    <padding>
+                        <Insets top="8" right="8" bottom="8" left="8"/>
+                    </padding>
+                    <Label text="密码:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <PasswordField fx:id="passwordField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label text="确认密码:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <PasswordField fx:id="confirmPasswordField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="密码错误锁定次数:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="lockThresholdField" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                    <Label text="锁定时长(分钟):" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField fx:id="lockMinutesField" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <Label text="到期时间:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    <HBox spacing="6" GridPane.rowIndex="4" GridPane.columnIndex="1">
+                        <DatePicker fx:id="expiryDatePicker"/>
+                        <CheckBox fx:id="enableExpiryCheck" text="启用到期时间"/>
+                    </HBox>
+
+                    <Label text="绑定配置:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                    <VBox spacing="4" GridPane.rowIndex="5" GridPane.columnIndex="1">
+                        <HBox spacing="6">
+                            <CheckBox fx:id="bindCpu" text="CPU"/>
+                            <CheckBox fx:id="bindDisk" text="硬盘"/>
+                            <CheckBox fx:id="bindMac" text="MAC"/>
+                            <CheckBox fx:id="bindCwd" text="运行目录"/>
+                        </HBox>
+                        <Button fx:id="selectAllBind" text="全选 / 取消全选"/>
+                    </VBox>
+                </GridPane>
+            </TitledPane>
+
+            <!-- 日志输出区 -->
+            <TitledPane text="日志输出" expanded="true">
+                <VBox spacing="6">
+                    <padding>
+                        <Insets top="6" right="6" bottom="6" left="6"/>
+                    </padding>
+                    <TextArea fx:id="logArea" prefRowCount="8" wrapText="true"/>
+                    <HBox spacing="6">
+                        <Button text="清空日志" onAction="#onClearConfig"/>
+                        <Button text="复制日志" onAction="#onHelp"/>
+                    </HBox>
+                </VBox>
+            </TitledPane>
+
+            <!-- 核心操作区 -->
+            <HBox spacing="12" alignment="CENTER_RIGHT">
+                <Button text="清空配置" onAction="#onClearConfig"/>
+                <Button text="查看帮助文档" onAction="#onHelp"/>
+                <Button fx:id="startBtn" text="开始加密" style="-fx-background-color:#2196F3; -fx-text-fill:white;" onAction="#onStartEncrypt"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>
