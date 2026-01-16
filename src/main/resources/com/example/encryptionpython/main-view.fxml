@@ -69,8 +69,8 @@
                     </padding>
                     <TextArea fx:id="logArea" prefRowCount="8" wrapText="true"/>
                     <HBox spacing="6">
-                        <Button text="清空日志" onAction="#onClearConfig"/>
-                        <Button text="复制日志" onAction="#onHelp"/>
+                        <Button text="清空日志" onAction="#onClearLog"/>
+                        <Button text="复制日志" onAction="#onCopyLog"/>
                     </HBox>
                 </VBox>
             </TitledPane>
@@ -83,4 +83,13 @@
             </HBox>
         </VBox>
     </center>
+    <bottom>
+        <HBox alignment="CENTER_LEFT" style="-fx-background-color:#f5f5f5;">
+            <padding>
+                <Insets top="4" right="8" bottom="4" left="8"/>
+            </padding>
+            <Label text="© 2026 halosb. 保留所有权利 | 未经授权，禁止篡改、分发、逆向本工具及生成的加密脚本" 
+                   style="-fx-font-size:10px; -fx-text-fill:#666666;"/>
+        </HBox>
+    </bottom>
 </BorderPane>

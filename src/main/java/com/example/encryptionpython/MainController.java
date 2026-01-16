@@ -51,6 +51,7 @@ public class MainController {
         expiryDatePicker.setValue(LocalDate.now().plusDays(30));
         enableExpiryCheck.setSelected(false);
         selectAllBind.setOnAction(e -> toggleAllBindings());
+        log("【© 2026 halosb】Python 加密保护工具 v1.0 启动中...");
         log("界面已初始化");
     }
 
@@ -102,6 +103,7 @@ public class MainController {
 
         boolean[] binds = new boolean[]{bindCpu.isSelected(), bindDisk.isSelected(), bindMac.isSelected(), bindCwd.isSelected()};
 
+        System.out.println("开始加密...");
         log("开始加密...");
         startBtn.setDisable(true);
 
@@ -115,8 +117,12 @@ public class MainController {
 
                 File inFile = new File(in);
                 File outFile = PythonPacker.pack(inFile, new File(outDir), salt, hash, obf, threshold, lockMins, useExpiry, expiryVal, binds);
+                System.out.println("✅ 加密成功  | 生成的加密脚本受版权保护，禁止非法篡改");
+                System.out.println("加密完成: " + outFile.getAbsolutePath());
+                log("✅ 加密成功  | 生成的加密脚本受版权保护，禁止非法篡改");
                 log("加密完成: " + outFile.getAbsolutePath());
             } catch (Exception ex) {
+                System.err.println("❌ 加密失败: " + ex.getMessage());
                 log("加密失败: " + ex.getMessage());
                 ex.printStackTrace();
             } finally {
@@ -135,10 +141,30 @@ public class MainController {
 
     @FXML
     private void onHelp() {
-        String help = "使用说明:\n1) 选择 .py 文件并设置输出目录。\n2) 输入密码并配置绑定/到期等参数。\n3) 点击开始加密，生成受保护的 Python 文件。";
+        String help = "使用说明:\n1) 选择 .py 文件并设置输出目录。\n2) 输入密码并配置绑定/到期等参数。\n3) 点击开始加密，生成受保护的 Python 文件。\n4) 暂不推荐使用MAC和运行目录。";
         log(help);
         Alert a = new Alert(Alert.AlertType.INFORMATION, help, ButtonType.OK);
         a.setHeaderText("帮助"); a.showAndWait();
+    }
+
+    @FXML
+    private void onClearLog() {
+        Platform.runLater(() -> logArea.clear());
+        log("日志已清空");
+    }
+
+    @FXML
+    private void onCopyLog() {
+        String txt = logArea.getText();
+        if (txt != null && !txt.isEmpty()) {
+            final javafx.scene.input.Clipboard clipboard = javafx.scene.input.Clipboard.getSystemClipboard();
+            final javafx.scene.input.ClipboardContent content = new javafx.scene.input.ClipboardContent();
+            content.putString(txt);
+            clipboard.setContent(content);
+            log("日志已复制到剪贴板");
+        } else {
+            log("日志为空，无法复制");
+        }
     }
 
     private void log(String s) {
